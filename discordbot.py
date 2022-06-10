@@ -2,6 +2,9 @@ started = 0
 playing = False
 queue = []
 skipsong = False
+
+niceto = []
+
 import math
 import asyncio
 from pyexpat.errors import messages
@@ -60,9 +63,14 @@ client = discord.Client()
 client = commands.Bot(command_prefix='./', intents=intents)
 DiscordComponents(client)
 
-# if message.content.startswith('+best'):
-#    user = choice(message.channel.guild.members)
-#    yield from client.send_message(message.channel, ' : %s is the best ' % user.mention)
+@client.event
+async def on_ready():
+    file = open("niceto.who")
+    niceto = file.readlines()
+    niceto = [int(s.strip('\n')) for s in niceto]
+    file.close()
+    print(niceto)
+
 @client.event
 async def on_message(message):
     if "meow" in message.content.lower() and not str(message.author) == "mi haels bot#6905":
@@ -98,6 +106,13 @@ async def owner(ctx):
     await ctx.message.delete()
     await ctx.channel.send(ctx.guild.owner.id)
 
+@client.command(hidden=True)
+async def nice(ctx):
+    if int(ctx.author.id not in niceto):
+        file = open('niceto.who', 'w+')
+        lines = file.read()
+        file.write(lines+ctx.author.id+"\n")
+        on_ready()
 
 @client.command()
 async def cat(ctx):
