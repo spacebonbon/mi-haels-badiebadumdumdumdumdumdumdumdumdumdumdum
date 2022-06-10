@@ -22,9 +22,15 @@ from discord_components import DiscordComponents, Button, SelectOption, Select, 
 import requests
 from typing import Text
 import aiohttp
+from dotenv import load_dotenv
+
+load_dotenv()
 
 intents = discord.Intents.all()
 
+file = open("token.env")
+
+token = file.read()
 
 def most_frequent(List):
     counter = 0
@@ -111,7 +117,7 @@ async def nice(ctx):
     if int(ctx.author.id not in niceto):
         file = open('niceto.who', 'w+')
         lines = file.read()
-        file.write(lines+ctx.author.id+"\n")
+        file.write(lines+str(ctx.author.id)+"\n")
         on_ready()
 
 @client.command()
@@ -652,4 +658,4 @@ async def nuke_error(ctx, error):
     await ctx.send("You cannot do that {}! You do not have message management permissions!".format(ctx.author.mention))
 
 
-client.run("NzkwNzY1NjU2NTcxMzc5NzYy.X-FX6A.9JOPvXnfoYvtd1G2RkwN79yDiXU")
+client.run(token)
