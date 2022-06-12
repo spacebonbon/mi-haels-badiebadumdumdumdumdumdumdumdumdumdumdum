@@ -8,7 +8,7 @@ niceto = []
 import math
 import asyncio
 from pyexpat.errors import messages
-from commands.mafia import mafia
+import commands.mafia as mfia
 import yt_dlp as youtube_dl
 import os
 import time
@@ -106,6 +106,11 @@ async def on_message(message):
         else:
             await message.channel.send(texts("fortunes.txt"))
     await client.process_commands(message)
+
+
+@client.command()
+async def mafia(ctx):
+    await mfia.mafia(ctx,client)
 
 @client.command()
 async def owner(ctx):

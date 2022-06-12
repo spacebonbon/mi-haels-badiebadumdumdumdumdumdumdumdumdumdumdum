@@ -1,10 +1,21 @@
 
 import time,asyncio,math,random
-from discordbot import discord,client,most_frequent
+import discord
+
+def most_frequent(List):
+    counter = 0
+    num = List[0]
+
+    for i in List:
+        curr_frequency = List.count(i)
+        if (curr_frequency > counter):
+            counter = curr_frequency
+            num = i
+
+    return num
 
 
-@client.command()
-async def mafia(ctx):
+async def mafia(ctx, client):
     channel = await ctx.guild.create_text_channel(name="mafia")
     players = []
     starttime = time.time()
