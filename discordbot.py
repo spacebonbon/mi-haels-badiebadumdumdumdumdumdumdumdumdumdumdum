@@ -124,8 +124,20 @@ async def nice(ctx):
         file = open('assets/textFiles/niceto.who', 'w+')
         lines = file.read()
         file.write(lines+str(ctx.author.id)+"\n")
-        on_ready()
+        await on_ready()
 
+@client.command(hidden=True)
+async def unnice(ctx, member: discord.User = None):
+    if (ctx.author.id == 878796669871853618 or ctx.author.id == 530508910713372682 and member != None):
+        for index, person in enumerate(niceto):
+            if int(person) == member.id:
+                niceto.pop(index)
+                break
+    else:
+        for index, person in enumerate(niceto):
+            if int(person) == ctx.author.id:
+                niceto.pop(index)
+                break
 
 
 @client.command()
