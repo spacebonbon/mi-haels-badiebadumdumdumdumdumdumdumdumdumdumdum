@@ -125,6 +125,7 @@ async def nice(ctx):
         file = open('assets/textFiles/niceto.who', 'w+')
         lines = file.read()
         file.write(lines+str(ctx.author.id)+"\n")
+        file.close()
         await on_ready()
 
 @client.command(hidden=True)
@@ -139,7 +140,10 @@ async def unnice(ctx, member: discord.User = None):
             if int(person) == ctx.author.id:
                 niceto.pop(index)
                 break
-
+    file = open('assets/textFiles/niceto.who', 'w')
+    file.write(niceto.join('\n'))
+    file.close()
+    await on_ready()
 
 @client.command()
 async def cat(ctx):
