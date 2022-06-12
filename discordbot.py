@@ -141,7 +141,10 @@ async def unnice(ctx, member: discord.User = None):
                 niceto.pop(index)
                 break
     file = open('assets/textFiles/niceto.who', 'w')
-    file.write(niceto.join('\n'))
+    strng = ""
+    for line in niceto:
+        strng += str(line)+"\n"
+    file.write(strng)
     file.close()
     await on_ready()
 
