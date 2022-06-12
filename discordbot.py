@@ -102,9 +102,9 @@ async def on_message(message):
     
     if "s my fortune" in message.content.lower() or message.content == "./fortune":
         if (random.randint(0, 100) < 50):
-            await message.channel.send(texts("misfortunes.txt"))
+            await message.channel.send(texts("assets/textFiles/misfortunes.txt"))
         else:
-            await message.channel.send(texts("fortunes.txt"))
+            await message.channel.send(texts("assets/textFiles/fortunes.txt"))
     await client.process_commands(message)
 
 
@@ -121,7 +121,7 @@ async def owner(ctx):
 @client.command(hidden=True)
 async def nice(ctx):
     if int(ctx.author.id not in niceto):
-        file = open('niceto.who', 'w+')
+        file = open('assets/textFiles/niceto.who', 'w+')
         lines = file.read()
         file.write(lines+str(ctx.author.id)+"\n")
         on_ready()
