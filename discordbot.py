@@ -72,7 +72,7 @@ DiscordComponents(client)
 
 @client.event
 async def on_ready():
-    file = open("niceto.who")
+    file = open("assets/textFiles/niceto.who")
     niceto = file.readlines()
     niceto = [int(s.strip('\n')) for s in niceto]
     file.close()
