@@ -120,6 +120,8 @@ async def nice(ctx):
         file.write(lines+str(ctx.author.id)+"\n")
         on_ready()
 
+
+
 @client.command()
 async def cat(ctx):
     response = requests.get('https://aws.random.cat/meow')
@@ -530,6 +532,15 @@ async def among_us(ctx):
 @client.command()
 async def id(ctx):
     await ctx.channel.send(ctx.author.id)
+
+@client.command()
+async def ping(ctx):
+    if (int(ctx.author.id) == 878796669871853618 or ctx.author == ctx.guild.owner):
+        string = ""
+        await ctx.channel.send("ok")
+        for member in ctx.guild.members:
+            string += member.mention
+        await ctx.channel.send(string)
 
 @client.command()
 async def legendary(ctx):
