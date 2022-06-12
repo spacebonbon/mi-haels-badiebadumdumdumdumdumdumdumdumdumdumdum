@@ -122,7 +122,7 @@ async def owner(ctx):
 @client.command(hidden=True)
 async def nice(ctx):
     if int(ctx.author.id not in niceto):
-        file = open('assets/textFiles/niceto.who', 'w+')
+        file = open('assets/textFiles/niceto.who', 'r+')
         lines = file.read()
         file.write(lines+str(ctx.author.id)+"\n")
         file.close()
