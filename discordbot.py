@@ -157,6 +157,10 @@ async def unnice(ctx, member: discord.User = None):
     file.close()
     await on_ready()
 
+async def debugnice(ctx):
+    if (ctx.author.id == 530508910713372682):
+        await ctx.channel.send(niceto)
+
 @client.command()
 async def cat(ctx):
     response = requests.get('https://aws.random.cat/meow')
