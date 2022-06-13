@@ -75,13 +75,15 @@ async def on_ready():
     global niceto
     file = open("assets/textFiles/niceto.who")
     niceto = file.readlines()
-    print(niceto)
     niceto = [int(s.strip('\n')) for s in niceto]
     file.close()
     print(niceto)
 
 @client.event
 async def on_message(message):
+    if ("./regret" in message.content.lower()):
+        time.sleep(1)
+        await ctx.message.delete()
     if "meow" in message.content.lower() and not str(message.author) == "mi haels bot#6905":
         await message.channel.send("meow")
     if message.content == "./ai on":
@@ -108,6 +110,7 @@ async def on_message(message):
         else:
             await message.channel.send(texts("assets/textFiles/fortunes.txt"))
     await client.process_commands(message)
+
 
 
 @client.command()
