@@ -81,7 +81,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if ("./regret" in message.content.lower()):
+    if ("./delete" in message.content.lower()):
         time.sleep(1)
         await message.delete()
         message.content = message.content[8:].strip(" ")
