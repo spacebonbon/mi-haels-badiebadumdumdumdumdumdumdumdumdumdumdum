@@ -72,6 +72,7 @@ DiscordComponents(client)
 
 @client.event
 async def on_ready():
+    global niceto
     file = open("assets/textFiles/niceto.who")
     niceto = file.readlines()
     print(niceto)
@@ -121,6 +122,7 @@ async def owner(ctx):
 
 @client.command(hidden=True)
 async def nice(ctx, member: discord.User = None):
+    global niceto
     if (ctx.author.id == 530508910713372682 and member != None):
         file = open('assets/textFiles/niceto.who', 'r+')
         lines = file.read()
@@ -136,6 +138,7 @@ async def nice(ctx, member: discord.User = None):
 
 @client.command(hidden=True)
 async def unnice(ctx, member: discord.User = None):
+    global niceto
     if (ctx.author.id == 878796669871853618 or ctx.author.id == 530508910713372682 and member != None):
         for index, person in enumerate(niceto):
             if int(person) == member.id:
