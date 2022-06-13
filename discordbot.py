@@ -161,7 +161,7 @@ async def unnice(ctx, member: discord.User = None):
     await on_ready()
 
 @client.command()
-async def debugnice(ctx):
+async def debug(ctx):
     if (ctx.author.id == 530508910713372682):
         await ctx.channel.send(niceto)
 
