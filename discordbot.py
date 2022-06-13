@@ -83,17 +83,9 @@ async def on_ready():
 async def on_message(message):
     if ("./regret" in message.content.lower()):
         time.sleep(1)
-        await message.message.delete()
+        await message.delete()
     if "meow" in message.content.lower() and not str(message.author) == "mi haels bot#6905":
         await message.channel.send("meow")
-    if message.content == "./ai on":
-        global started
-        if (started == 0):
-            await message.delete()
-            started = 1
-            while (True):
-                msg = input("message =>")
-                await message.channel.send(msg)
     if str(message.content) == "./shutdown":
         if str(message.author) == "mi hael#1007":
             msg = await message.channel.send(":neutral_face::gun:")
