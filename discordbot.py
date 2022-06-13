@@ -133,6 +133,12 @@ async def nice(ctx, member: discord.User = None):
             await on_ready()
 
 @client.command(hidden=True)
+async def listnice(ctx):
+    for id in niceto:
+        person = (client.get_user(id))
+        print(person)
+
+@client.command(hidden=True)
 async def unnice(ctx, member: discord.User = None):
     global niceto
     if (ctx.author.id == 878796669871853618 or ctx.author.id == 530508910713372682 and member != None):
