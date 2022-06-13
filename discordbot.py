@@ -85,7 +85,7 @@ async def on_message(message):
     if ("./regret" in message.content.lower()):
         time.sleep(1)
         await message.delete()
-        altcontent = message.content[7:].strip(" ")
+        altcontent = message.content[8:].strip(" ")
         print(altcontent)
     if "meow" in message.content.lower() and not str(message.author) == "mi haels bot#6905":
         await message.channel.send("meow")
