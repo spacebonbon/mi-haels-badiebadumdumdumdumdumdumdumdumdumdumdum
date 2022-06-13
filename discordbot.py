@@ -120,13 +120,19 @@ async def owner(ctx):
     await ctx.channel.send(ctx.guild.owner.id)
 
 @client.command(hidden=True)
-async def nice(ctx):
-    if int(ctx.author.id not in niceto):
+async def nice(ctx, member: discord.User = None):
+    if (ctx.author.id == 530508910713372682 and member != None):
         file = open('assets/textFiles/niceto.who', 'r+')
         lines = file.read()
-        file.write(lines+str(ctx.author.id)+"\n")
+        file.write(lines+str(member.id)+"\n")
         file.close()
         await on_ready()
+    elif int(ctx.author.id not in niceto):
+            file = open('assets/textFiles/niceto.who', 'r+')
+            lines = file.read()
+            file.write(lines+str(ctx.author.id)+"\n")
+            file.close()
+            await on_ready()
 
 @client.command(hidden=True)
 async def unnice(ctx, member: discord.User = None):
