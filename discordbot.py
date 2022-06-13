@@ -81,12 +81,10 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    altcontent = None
     if ("./regret" in message.content.lower()):
         time.sleep(1)
         await message.delete()
-        altcontent = message.content[8:].strip(" ")
-        print(altcontent)
+        message.content = message.content[8:].strip(" ")
     if "meow" in message.content.lower() and not str(message.author) == "mi haels bot#6905":
         await message.channel.send("meow")
     if str(message.content) == "./shutdown":
@@ -104,10 +102,7 @@ async def on_message(message):
             await message.channel.send(texts("assets/textFiles/misfortunes.txt"))
         else:
             await message.channel.send(texts("assets/textFiles/fortunes.txt"))
-    if altcontent != None:
-        await client.process_commands(altcontent)        
-    else:
-        await client.process_commands(message)
+    await client.process_commands(message)
 
 
 
