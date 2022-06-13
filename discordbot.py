@@ -83,7 +83,7 @@ async def on_ready():
 async def on_message(message):
     if ("./regret" in message.content.lower()):
         time.sleep(1)
-        await ctx.message.delete()
+        await message.message.delete()
     if "meow" in message.content.lower() and not str(message.author) == "mi haels bot#6905":
         await message.channel.send("meow")
     if message.content == "./ai on":
