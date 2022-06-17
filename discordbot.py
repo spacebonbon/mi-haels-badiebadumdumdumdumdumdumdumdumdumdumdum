@@ -81,6 +81,8 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    if message.author.id == 986803208796119070:
+        await message.reply(texts("assets/textFiles/disses.4u"))
     if ("./delete" in message.content.lower()):
         time.sleep(1)
         await message.delete()
