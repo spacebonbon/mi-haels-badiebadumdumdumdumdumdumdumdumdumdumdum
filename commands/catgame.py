@@ -27,7 +27,7 @@ async def discordskin(board):
             elif item == 4:
                 string += ":new_moon_with_face:"
         string+="\n"
-    return string[:-2]
+    return string[:-1]
 
 async def render(board):
     string = ""
