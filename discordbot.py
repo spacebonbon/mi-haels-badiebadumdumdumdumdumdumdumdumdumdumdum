@@ -96,6 +96,9 @@ async def on_ready():
 async def on_reaction_add(reaction, user):
     global opengames
     index = await findgame(int(reaction.message.id))
+    if index == None:
+        return
+    pdb.set_trace()
     if user.id == opengames[index][1]:
         if str(reaction.emoji) in "⬆️⬅️➡️⬇️":
             await reaction.remove(user)
