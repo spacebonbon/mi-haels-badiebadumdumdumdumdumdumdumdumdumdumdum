@@ -126,7 +126,7 @@ async def mafia(ctx):
 @client.command()
 async def catgame(ctx):
     game = await kittygame.start()
-    await ctx.channel.send(kittygame.discordskin(game[0]))
+    await ctx.channel.send(await kittygame.discordskin(game[0]))
 
 @client.command()
 async def owner(ctx):
