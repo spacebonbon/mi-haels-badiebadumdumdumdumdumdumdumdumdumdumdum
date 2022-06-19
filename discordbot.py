@@ -86,7 +86,7 @@ async def on_ready():
 async def on_reaction_add(reaction, user):
     if reaction.message.id in opengames:
         if str(reaction.emoji) in "⬆️⬅️➡️⬇️":
-            await reaction.remove()
+            await reaction.remove(user)
 
     print(reaction.emoji)
 
