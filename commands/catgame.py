@@ -132,6 +132,7 @@ async def pathgo(board,pos):
 
 
 
+"""
 async def que():
     game = await start()
     boardd = copy.deepcopy(game)
@@ -145,3 +146,4 @@ async def que():
     print(await render(boardd))
 
 asyncio.run(que())
+"""
