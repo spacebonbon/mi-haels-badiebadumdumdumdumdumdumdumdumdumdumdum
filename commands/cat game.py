@@ -8,6 +8,14 @@ import copy
 
 from click import BadParameter 
 
+
+async def move(prevpos,newpos,level):
+    item = level[prevpos[0]][prevpos[1]]
+    level[prevpos[0]][prevpos[1]] = 0
+    level[newpos[0]][newpos[1]] = item
+    return level
+
+
 async def render(board):
     string = ""
     for line in board:
@@ -109,6 +117,8 @@ async def pathgo(board,pos):
     return [x,y,pos[2]]
 
 
+
+
 async def que():
     game = await start()
     boardd = copy.deepcopy(game)
@@ -118,8 +128,7 @@ async def que():
     level = await mark(level, game[1])
     print(await render(level))
     print(await render(boardd))
-    print(game[2][0])
-    game[2][0] = await pathgo(level, game[2][0])
-    print(game[2][0])
+    boardd = await move(game[2][0], await pathgo(level, game[2][0]),boardd)
+    print(await render(boardd))
 
 asyncio.run(que())

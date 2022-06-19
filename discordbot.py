@@ -79,7 +79,9 @@ async def on_ready():
     file.close()
     print(niceto)
 
-
+@client.event
+async def on_reaction_add(reaction, user):
+    print(reaction)
 
 @client.event
 async def on_message(message):
