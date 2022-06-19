@@ -8,6 +8,7 @@ niceto = []
 
 import math
 import asyncio
+import pdb
 from pyexpat.errors import messages
 import commands.mafia as mfia
 import commands.catgame as kittygame
@@ -153,6 +154,8 @@ async def catgame(ctx):
     for emoji in reactions:
         await msg.add_reaction(emoji)
     opengames.append([ctx.message.id, ctx.author.id])
+    gamedata.append(game)
+    pdb.set_trace()
 
 @client.command()
 async def owner(ctx):
