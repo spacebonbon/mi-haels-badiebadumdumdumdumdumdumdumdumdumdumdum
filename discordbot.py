@@ -127,7 +127,10 @@ async def mafia(ctx):
 async def catgame(ctx):
     game = await kittygame.start()
     skin = await kittygame.discordskin(game[0])
-    await ctx.channel.send(skin)
+    msg = await ctx.channel.send(skin)
+    reactions = ["⬆️","⬅️","➡️","⬇️"]
+    for emoji in reactions:
+        await client.add_reaction(msg, emoji)
 
 @client.command()
 async def owner(ctx):
