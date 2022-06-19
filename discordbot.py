@@ -2,13 +2,15 @@ started = 0
 playing = False
 queue = []
 skipsong = False
-
+opengames = []
+gamedata = []
 niceto = []
 
 import math
 import asyncio
 from pyexpat.errors import messages
 import commands.mafia as mfia
+import commands.catgame as catgame
 import yt_dlp as youtube_dl
 import os
 import time
@@ -52,6 +54,7 @@ def texts(file):
         return choice(lines)
 
 
+
 def countOccurrences(str, word):
     # split the string by spaces in a
     a = str.split(" ")
@@ -81,8 +84,10 @@ async def on_ready():
 
 @client.event
 async def on_reaction_add(reaction, user):
-    if str(reaction.emoji) in "⬆️⬅️➡️⬇️":
-        print("moving")
+    if reaction.message.id in opengames:
+        if str(reaction.emoji) in "⬆️⬅️➡️⬇️":
+            await reaction.remove()
+
     print(reaction.emoji)
 
 @client.event
@@ -114,7 +119,7 @@ async def on_message(message):
             await message.channel.send(texts("assets/textFiles/fortunes.txt"))
     await client.process_commands(message)
 
-
+@client.command()
 
 @client.command()
 async def mafia(ctx):
@@ -122,7 +127,6 @@ async def mafia(ctx):
 
 @client.command()
 async def owner(ctx):
-    
     await ctx.message.delete()
     await ctx.channel.send(ctx.guild.owner.id)
 

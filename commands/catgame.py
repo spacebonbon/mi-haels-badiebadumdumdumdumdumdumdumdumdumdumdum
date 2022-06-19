@@ -15,6 +15,22 @@ async def move(prevpos,newpos,level):
     level[newpos[0]][newpos[1]] = item
     return level
 
+async def discordskin(board):
+    string = ""
+    for line in board:
+        for item in line:
+            if item == 0:
+                string += ":black_large_square:"
+            elif item == 1:
+                string += ":white_large_square:"
+            elif item == 2:
+                string += ":checkered_flag:"
+            elif item == 3:
+                string += ":jack_o_lantern:"
+            elif item == 4:
+                string += ":new_moon_with_face:"
+        string+="\n"
+    return string[:-2]
 
 async def render(board):
     string = ""
