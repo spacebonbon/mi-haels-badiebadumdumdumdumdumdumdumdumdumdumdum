@@ -69,6 +69,15 @@ def countOccurrences(str, word):
 
     return count
 
+async def findgame(id):
+    global opengames
+    for index, game in enumerate(opengames):
+        if id in game[0]:
+            return index
+    return None
+
+
+
 client = discord.Client()
 client = commands.Bot(command_prefix='./', intents=intents)
 DiscordComponents(client)
@@ -84,9 +93,19 @@ async def on_ready():
 
 @client.event
 async def on_reaction_add(reaction, user):
-    if reaction.message.id in opengames:
+    global opengames
+    index = await findgame(int(reaction.message.id))
+    if user.id == opengames[index][1]:
         if str(reaction.emoji) in "⬆️⬅️➡️⬇️":
             await reaction.remove(user)
+
+    print(reaction.emoji)
+
+@client.event
+async def on_reaction_remove(reaction, user):
+    if reaction.message.id in opengames:
+        if str(reaction.emoji) == "⬆️":
+            pass
 
     print(reaction.emoji)
 
@@ -125,12 +144,15 @@ async def mafia(ctx):
 
 @client.command()
 async def catgame(ctx):
+    global opengames
+    global gamedata
     game = await kittygame.start()
     skin = await kittygame.discordskin(game[0])
     msg = await ctx.channel.send(skin)
     reactions = ["⬆️","⬅️","➡️","⬇️"]
     for emoji in reactions:
         await msg.add_reaction(emoji)
+    opengames.append([ctx.message.id, ctx.author.id])
 
 @client.command()
 async def owner(ctx):
