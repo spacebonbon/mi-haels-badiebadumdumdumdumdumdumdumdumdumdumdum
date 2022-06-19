@@ -81,8 +81,8 @@ async def on_ready():
 
 @client.event
 async def on_reaction_add(reaction, user):
-    print(reaction)
-    print(user)
+    if reaction in "⬆️⬅️➡️⬇️":
+        print(moving)
 
 @client.event
 async def on_message(message):
