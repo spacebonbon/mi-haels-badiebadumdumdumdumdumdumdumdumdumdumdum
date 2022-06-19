@@ -10,7 +10,7 @@ import math
 import asyncio
 from pyexpat.errors import messages
 import commands.mafia as mfia
-import commands.catgame as catgame
+import commands.catgame as kittygame
 import yt_dlp as youtube_dl
 import os
 import time
@@ -125,7 +125,7 @@ async def mafia(ctx):
 
 @client.command()
 async def catgame(ctx):
-    game = await catgame.start()
+    game = await kittygame.start()
     await ctx.channel.send(catgame.discordskin(game[0]))
 
 @client.command()
