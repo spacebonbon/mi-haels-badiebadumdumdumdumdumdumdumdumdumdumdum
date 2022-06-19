@@ -130,7 +130,7 @@ async def catgame(ctx):
     msg = await ctx.channel.send(skin)
     reactions = ["⬆️","⬅️","➡️","⬇️"]
     for emoji in reactions:
-        await client.add_reaction(msg, emoji)
+        await msg.add_reaction(emoji)
 
 @client.command()
 async def owner(ctx):
