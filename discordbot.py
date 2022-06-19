@@ -124,6 +124,11 @@ async def mafia(ctx):
     await mfia.mafia(ctx,client)
 
 @client.command()
+async def catgame(ctx):
+    game = await catgame.start()
+    await ctx.channel.send(catgame.discordskin(game[0]))
+
+@client.command()
 async def owner(ctx):
     await ctx.message.delete()
     await ctx.channel.send(ctx.guild.owner.id)
