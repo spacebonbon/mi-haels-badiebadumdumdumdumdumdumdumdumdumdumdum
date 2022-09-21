@@ -190,6 +190,12 @@ async def on_message(message):
 		os.remove("compvideo.mp4")
 	if "youtube.com/shorts" in message.content.lower():
 		await message.add_reaction("✅")
+		os.system("yt-dlp -v -o video.mp4 " + message.content)
+		compress_video("video.mp4","compvideo.mp4", 7500)
+		file = discord.File("compvideo.mp4")
+		await message.reply(file=file)
+		os.remove("video.mp4")
+		os.remove("compvideo.mp4")
 	if client.user.mentioned_in(message):
 		try:
 			message = await message.channel.fetch_message(message.reference.message_id)
