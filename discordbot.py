@@ -37,7 +37,7 @@ file = open("token.env")
 
 token = file.read()
 
-skinwalker = []
+skinwalker = [120803980983409834209834298098,219083210980321809123809809]
 
 def most_frequent(List):
 	counter = 0
@@ -313,6 +313,7 @@ async def skinwalkerTalk(message):
 	webhooks = await message.channel.webhooks()
 	for webhook in webhooks:
 		await webhook.delete()
+	await message.delete()
 
 @client.command()
 async def play(ctx, url: str):
