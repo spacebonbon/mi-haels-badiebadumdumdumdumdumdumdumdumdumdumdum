@@ -6,13 +6,13 @@ opengames = []
 gamedata = []
 niceto = []
 
+import ffmpeg
 import math
 import asyncio
 import pdb
 from pyexpat.errors import messages
 import commands.mafia as mfia
 import commands.catgame as kittygame
-from commands.untiktok import *
 import yt_dlp as youtube_dl
 import os
 import time
@@ -70,6 +70,37 @@ def countOccurrences(str, word):
             count = count + 1
 
     return count
+
+def compress_video(video_full_path, output_file_name, target_size):
+    # Reference: https://en.wikipedia.org/wiki/Bit_rate#Encoding_bit_rate
+    min_audio_bitrate = 32000
+    max_audio_bitrate = 256000
+
+    probe = ffmpeg.probe(video_full_path)
+    # Video duration, in s.
+    duration = float(probe['format']['duration'])
+    # Audio bitrate, in bps.
+    audio_bitrate = float(next((s for s in probe['streams'] if s['codec_type'] == 'audio'), None)['bit_rate'])
+    # Target total bitrate, in bps.
+    target_total_bitrate = (target_size * 1024 * 8) / (1.073741824 * duration)
+
+    # Target audio bitrate, in bps
+    if 10 * audio_bitrate > target_total_bitrate:
+        audio_bitrate = target_total_bitrate / 10
+        if audio_bitrate < min_audio_bitrate < target_total_bitrate:
+            audio_bitrate = min_audio_bitrate
+        elif audio_bitrate > max_audio_bitrate:
+            audio_bitrate = max_audio_bitrate
+    # Target video bitrate, in bps.
+    video_bitrate = target_total_bitrate - audio_bitrate
+
+    i = ffmpeg.input(video_full_path)
+    ffmpeg.output(i, os.devnull,
+                  **{'c:v': 'libx264', 'b:v': video_bitrate, 'pass': 1, 'f': 'mp4'}
+                  ).overwrite_output().run()
+    ffmpeg.output(i, output_file_name,
+                  **{'c:v': 'libx264', 'b:v': video_bitrate, 'pass': 2, 'c:a': 'aac', 'b:a': audio_bitrate}
+                  ).overwrite_output().run()
 
 async def findgame(id):
     global opengames
@@ -141,11 +172,14 @@ async def on_message(message):
             await message.channel.send(texts("assets/textFiles/misfortunes.txt"))
         else:
             await message.channel.send(texts("assets/textFiles/fortunes.txt"))
-    if "https://tiktok.com/t/" in message.content:
+    if "tiktok.com" in message.content:
         print("tiktok found!")
         os.system("yt-dlp -v -o video.mp4 " + message.content)
-        file = discord.File("video.mp4")
+        compress_video("video.mp4","compvideo.mp4", 7500)
+        file = discord.File("compvideo.mp4")
         await message.reply(file=file)
+        os.remove("video.mp4")
+        os.remove("compvideo.mp4")
 	
     await client.process_commands(message)
 
