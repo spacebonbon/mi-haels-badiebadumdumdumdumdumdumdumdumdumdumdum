@@ -182,7 +182,7 @@ async def on_message(message):
 	if "tiktok.com" in message.content.lower():
 		print("tiktok found!")
 		await message.add_reaction("✅")
-		os.system("yt-dlp -v -o video.mp4 " + message.content)
+		os.system("yt-dlp -v -o video.mp4 -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\"" + message.content)
 		compress_video("video.mp4","compvideo.mp4", 7500)
 		file = discord.File("compvideo.mp4")
 		await message.reply(file=file)
