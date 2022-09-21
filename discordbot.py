@@ -136,17 +136,17 @@ async def on_message(message):
         else:
             await message.channel.send("you don't have control over me " + str(message.author) + "!")
     
-	if "s my fortune" in message.content.lower() or message.content == "./fortune":
+    if "s my fortune" in message.content.lower() or message.content == "./fortune":
         if (random.randint(0, 100) < 50):
             await message.channel.send(texts("assets/textFiles/misfortunes.txt"))
         else:
-			await message.channel.send(texts("assets/textFiles/fortunes.txt"))
-	if "https://tiktok.com/t/" in message.content:
-			print("tiktok found!")
-			os.system("yt-dlp -v -o video.mp4 " + message.content)
-		file = discord.File("video.mp4")
-		await message.reply(file=file)
-			
+            await message.channel.send(texts("assets/textFiles/fortunes.txt"))
+    if "https://tiktok.com/t/" in message.content:
+        print("tiktok found!")
+        os.system("yt-dlp -v -o video.mp4 " + message.content)
+        file = discord.File("video.mp4")
+        await message.reply(file=file)
+	
     await client.process_commands(message)
 
 @client.command()
