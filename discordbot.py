@@ -187,11 +187,11 @@ async def on_message(message):
 		try:
 			message = await message.channel.fetch_message(message.reference.message_id)
 			await on_message(message)
+			return
 		except:
 			if message.author == client.user:
 				return
 			await message.reply(content="DONT PING ME FOR NO REASON!!!!!!")
-			return
 	await client.process_commands(message)
 
 @client.command()
