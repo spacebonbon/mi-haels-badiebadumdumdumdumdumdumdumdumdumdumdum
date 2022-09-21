@@ -188,7 +188,8 @@ async def on_message(message):
 			message = await message.channel.fetch_message(message.reference.message_id)
 			await on_message(message)
 		except:
-			message.reply(content="DONT PING ME FOR NO REASON!!!!!!")
+			await message.reply(content="DONT PING ME FOR NO REASON!!!!!!")
+			return
 	await client.process_commands(message)
 
 @client.command()
