@@ -172,7 +172,7 @@ async def on_message(message):
             await message.channel.send(texts("assets/textFiles/misfortunes.txt"))
         else:
             await message.channel.send(texts("assets/textFiles/fortunes.txt"))
-    if "tiktok.com" in message.content:
+    if "tiktok.com" in message.content.lower():
         print("tiktok found!")
         os.system("yt-dlp -v -o video.mp4 " + message.content)
         compress_video("video.mp4","compvideo.mp4", 7500)
@@ -180,7 +180,8 @@ async def on_message(message):
         await message.reply(file=file)
         os.remove("video.mp4")
         os.remove("compvideo.mp4")
-	
+    if "youtube.com/shorts" in message.content.lower():
+        await messsage.reaction.add("sob")
     await client.process_commands(message)
 
 @client.command()
