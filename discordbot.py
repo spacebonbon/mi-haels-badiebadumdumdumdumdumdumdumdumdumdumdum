@@ -37,6 +37,8 @@ file = open("token.env")
 
 token = file.read()
 
+skinwalkers = []
+
 def most_frequent(List):
 	counter = 0
 	num = List[0]
@@ -286,6 +288,11 @@ async def nick(ctx, *, content):
 		await ctx.message.author.edit(nick=content)
 
 @client.command()
+async def wear(ctx, id=None):
+	skinwalkers.append([ctx.author.id, id])
+	print(skinwalkers)
+
+@client.command()
 async def play(ctx, url: str):
 	global playing, queue
 	await ctx.message.delete()
@@ -481,27 +488,12 @@ async def legendary(ctx):
 
 @client.command()
 @has_permissions(manage_messages=True)
-async def nuke(ctx, number=None):
+async def nuke(ctx, number=0):
 	await ctx.message.delete()
-	if number == None:
-		await ctx.send("initiating nuke.....")
-		time.sleep(5)
-		await ctx.send("5")
-		time.sleep(1)
-		await ctx.send("4")
-		time.sleep(1)
-		await ctx.send("3")
-		time.sleep(1)
-		await ctx.send("2")
-		time.sleep(1)
-		await ctx.send("1")
-		time.sleep(1)
-		await ctx.send("say goodbye")
-		time.sleep(5)
-
-		await ctx.channel.purge()
-	else:
-		await ctx.channel.purge(limit=int(number))
+	if number == 0:
+		ctx.message.reply(content="you need to specify how many")
+	
+	await ctx.channel.purge(limit=int(number))
 
 
 @client.command(
