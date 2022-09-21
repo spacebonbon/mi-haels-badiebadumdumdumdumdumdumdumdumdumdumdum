@@ -304,6 +304,12 @@ async def wear(ctx, id=None):
 	skinwalker = [ctx.author.id, id]
 	print(skinwalker)
 
+@client.command()
+async def unwear(ctx):
+	global skinwalker
+	skinwalker = [69,69]
+	await ctx.message.delete()
+
 async def skinwalkerTalk(message):
 	global skinwalker
 	object = skinwalker
