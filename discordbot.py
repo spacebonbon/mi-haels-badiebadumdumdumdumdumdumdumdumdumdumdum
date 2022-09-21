@@ -37,7 +37,7 @@ file = open("token.env")
 
 token = file.read()
 
-skinwalkers = []
+skinwalker = []
 
 def most_frequent(List):
 	counter = 0
@@ -149,6 +149,11 @@ async def on_reaction_remove(reaction, user):
 
 @client.event
 async def on_message(message):
+	global skinwalker
+	if skinwalker[0] == message.author.id:
+		await client.process_commands(message)
+		await skinwalkerTalk(message)
+		return
 	if message.author.id == 986803208796119070 and message.reference != None and not message.is_system:
 		tf = [True,False,True,False,True]
 		if random.choice(tf):
@@ -289,8 +294,25 @@ async def nick(ctx, *, content):
 
 @client.command()
 async def wear(ctx, id=None):
-	skinwalkers.append([ctx.author.id, id])
-	print(skinwalkers)
+	global skinwalker
+	if id == None:
+		return
+		await ctx.message.delete()
+	else:
+		id = int(id)
+		await ctx.message.delete()
+	skinwalker = [ctx.author.id, id]
+	print(skinwalker)
+
+async def skinwalkerTalk(message):
+	global skinwalker
+	object = skinwalker
+	member = client.get_user(object[1])
+	webhook = await message.channel.create_webhook(name=member.name)
+	await webhook.send(str(message.content), username=member.name, avatar_url=member.avatar_url)
+	webhooks = await message.channel.webhooks()
+	for webhook in webhooks:
+		await webhook.delete()
 
 @client.command()
 async def play(ctx, url: str):
