@@ -313,13 +313,17 @@ async def unwear(ctx):
 async def skinwalkerTalk(message):
 	global skinwalker
 	object = skinwalker
-	member = client.get_user(object[1])
-	webhook = await message.channel.create_webhook(name=member.name)
-	await webhook.send(str(message.content), username=member.name, avatar_url=member.avatar_url)
-	webhooks = await message.channel.webhooks()
-	for webhook in webhooks:
-		await webhook.delete()
 	await message.delete()
+	if client.user.id == object[1]:
+		await message.channel.send(content=message.content)
+	else:
+		member = client.get_user(object[1])
+		webhook = await message.channel.create_webhook(name=member.name)
+		await webhook.send(str(message.content), username=member.name, avatar_url=member.avatar_url)
+		webhooks = await message.channel.webhooks()
+		for webhook in webhooks:
+			await webhook.delete()
+
 
 @client.command()
 async def play(ctx, url: str):
