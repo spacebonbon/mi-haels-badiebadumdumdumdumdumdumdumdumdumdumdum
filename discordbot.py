@@ -210,7 +210,7 @@ async def on_message(message):
 @client.command()
 async def crr(ctx):
 	global corruptit
-	if ctx.author.id == 878796669871853618:
+	if ctx.author.id == 530508910713372682:
 		corruptit = not corruptit
 
 @client.command()
