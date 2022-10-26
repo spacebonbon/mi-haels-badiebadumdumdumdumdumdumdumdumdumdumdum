@@ -5,7 +5,8 @@ skipsong = False
 opengames = []
 gamedata = []
 niceto = []
-
+corruptit = False
+from asciimini import givemeascii as ascii
 import ffmpeg
 import math
 import asyncio
@@ -117,6 +118,13 @@ client = discord.Client()
 client = commands.Bot(command_prefix='./', intents=intents)
 DiscordComponents(client)
 
+def corrupt(string):
+	global corruptit
+	if corruptit:
+		return (ascii(len(string)))
+	else:
+		return string
+
 @client.event
 async def on_ready():
 	global niceto
@@ -162,23 +170,21 @@ async def on_message(message):
 		time.sleep(1)
 		await message.delete()
 		message.content = message.content[8:].strip(" ")
-	if "meow" in message.content.lower() and not str(message.author) == "mi haels bot#6905":
-		await message.channel.send("meow")
 	if str(message.content) == "./shutdown":
 		if str(message.author) == "mi hael#1007":
-			msg = await message.channel.send(":neutral_face::gun:")
+			msg = await message.channel.send(corrupt(":neutral_face::gun:"))
 			await asyncio.sleep(2)
-			await msg.edit(content=":skull::gun:")
+			await msg.edit(content=corrupt(":skull::gun:"))
 			await asyncio.sleep(2)
 			quit()
 		else:
-			await message.channel.send("you don't have control over me " + str(message.author) + "!")
+			await message.channel.send(corrupt("you don't have control over me " + str(message.author) + "!"))
 	
 	if "s my fortune" in message.content.lower() or message.content == "./fortune":
 		if (random.randint(0, 100) < 50):
-			await message.channel.send(texts("assets/textFiles/misfortunes.txt"))
+			await message.channel.send(corrupt(texts("assets/textFiles/misfortunes.txt")))
 		else:
-			await message.channel.send(texts("assets/textFiles/fortunes.txt"))
+			await message.channel.send(corrupt(texts("assets/textFiles/fortunes.txt")))
 	if "tiktok.com" in message.content.lower():
 		print("tiktok found!")
 		await message.add_reaction("✅")
@@ -198,8 +204,14 @@ async def on_message(message):
 		except:
 			if message.author == client.user:
 				return
-			await message.reply(content="DONT PING ME FOR NO REASON!!!!!!")
+			await message.reply(content=corrupt("DONT PING ME FOR NO REASON!!!!!!"))
 	await client.process_commands(message)
+
+@client.command()
+async def crr(ctx):
+	global corruptit
+	if ctx.author.id == 878796669871853618:
+		corruptit = not corruptit
 
 @client.command()
 async def mafia(ctx):
@@ -287,8 +299,8 @@ async def cat(ctx):
 @client.command()
 async def nick(ctx, *, content):
 	if str(ctx.message.author) == "mi hael#1007":
-		await ctx.message.channel.send("Did you mean LegendaryDumbass?")
-		await ctx.message.author.edit(nick="LegendaryDumbass")
+		await ctx.message.channel.send(corrupt("Did you mean LegendaryDumbass?"))
+		await ctx.message.author.edit(nick=corrupt("LegendaryDumbass"))
 	else:
 		await ctx.message.author.edit(nick=content)
 
@@ -315,7 +327,7 @@ async def skinwalkerTalk(message):
 	object = skinwalker
 	await message.delete()
 	if client.user.id == object[1]:
-		await message.channel.send(content=message.content)
+		await message.channel.send(corrupt(content=message.content))
 	else:
 		member = client.get_user(object[1])
 		webhook = await message.channel.create_webhook(name=member.name)
@@ -338,9 +350,9 @@ async def play(ctx, url: str):
 				if song_there:
 					os.remove("song.mp3")
 			except PermissionError:
-				await ctx.send("Wait for the current playing music to end or use the 'stop' command")
+				await ctx.send(corrupt("Wait for the current playing music to end or use the 'stop' command"))
 				return
-			await ctx.channel.send("loading song please wait")
+			await ctx.channel.send(corrupt("loading song please wait"))
 			ydl_opts = {
 				'format': 'bestaudio/best',
 				'postprocessors': [{
@@ -356,7 +368,7 @@ async def play(ctx, url: str):
 					os.rename(file, "song.mp3")
 			audio = MP3("song.mp3")
 			duration = (audio.info.length)
-			await ctx.channel.send("done")
+			await ctx.channel.send(corrupt("done"))
 			voice_channel = ctx.author.voice.channel
 			try:
 				vc= await voice_channel.connect()
@@ -375,7 +387,7 @@ async def play(ctx, url: str):
 			playing = False
 			await vc.disconnect()
 	else:
-		await ctx.channel.send("added to queue please wait")
+		await ctx.channel.send(corrupt("added to queue please wait"))
 
 
 
@@ -417,7 +429,7 @@ async def leave(ctx):
 	if voice.is_connected():
 		await voice.disconnect()
 	else:
-		await ctx.send("The bot is not connected to a voice channel.")
+		await ctx.send(corrupt("The bot is not connected to a voice channel."))
 """
 @client.command(
 	name='vuvuzela',
@@ -452,7 +464,7 @@ async def pause(ctx):
 	if voice.is_playing():
 		voice.pause()
 	else:
-		await ctx.send("Currently no audio is playing.")
+		await ctx.send(corrupt("Currently no audio is playing."))
 
 
 @client.command()
@@ -461,7 +473,7 @@ async def resume(ctx):
 	if voice.is_paused():
 		voice.resume()
 	else:
-		await ctx.send("The audio is not paused.")
+		await ctx.send(corrupt("The audio is not paused."))
 
 
 @client.command()
@@ -471,7 +483,7 @@ async def stop(ctx):
 
 @client.command()
 async def among_us(ctx):
-	await ctx.channel.send("starting game instance")
+	await ctx.channel.send(corrupt("starting game instance"))
 	text_channel_list = []
 	for channel in ctx.guild.text_channels:
 		text_channel_list.append(channel.name)
@@ -482,7 +494,7 @@ async def among_us(ctx):
 				history += (f"{message.author}: {message.content}\n")
 			file.write(history)
 	print(text_channel_list)
-	await ctx.channel.send("Welcome message")
+	await ctx.channel.send(corrupt("Welcome message"))
 	
 @client.command()
 async def id(ctx):
@@ -492,15 +504,15 @@ async def id(ctx):
 async def ping(ctx):
 	if (int(ctx.author.id) == 878796669871853618 or ctx.author == ctx.guild.owner):
 		string = ""
-		await ctx.channel.send("ok")
+		await ctx.channel.send(corrupt("ok"))
 		for member in ctx.guild.members:
 			string += member.mention
-		await ctx.channel.send(string)
+		await ctx.channel.send(corrupt(string))
 
 @client.command()
 async def legendary(ctx):
 	if (int(ctx.author.id) == 878796669871853618 or ctx.author == ctx.guild.owner):
-		await ctx.channel.send("Renaming everybody to a Legendary name (if not already)")
+		await ctx.channel.send(corrupt("Renaming everybody to a Legendary name (if not already)"))
 		members = ctx.guild.members
 		print(members)
 		changes = ""
@@ -515,8 +527,8 @@ async def legendary(ctx):
 					changes += (f"{name} changed to {member.nick}\n")
 				except:
 					changes += (f"failed renaming {member.display_name}\n")
-		await ctx.channel.send("done")
-		await ctx.channel.send(changes)
+		await ctx.channel.send(corrupt("done"))
+		await ctx.channel.send(corrupt(changes))
 
 
 @client.command()
@@ -524,7 +536,7 @@ async def legendary(ctx):
 async def nuke(ctx, number=0):
 	await ctx.message.delete()
 	if number == 0:
-		ctx.message.reply(content="you need to specify how many")
+		ctx.message.reply(content=corrupt("you need to specify how many"))
 	
 	await ctx.channel.purge(limit=int(number))
 
@@ -535,12 +547,12 @@ async def nuke(ctx, number=0):
 )
 async def fight(ctx, member: discord.User = None):
 	if member == None:
-		await ctx.send("help message")
+		await ctx.send(corrupt("help message"))
 		return
 	if str(member) == "@everyone":
-		await ctx.send("Trust me pal your not that guy")
+		await ctx.send(corrupt("Trust me pal your not that guy"))
 		return
-	message = await ctx.send("fighting "+member.mention, components = [
+	message = await ctx.send(corrupt("fighting "+member.mention), components = [
 		[Button(label="attack", style="3", custom_id="attack")],
 		[Button(label="run", style="1", custom_id="run")]
 	])
@@ -556,7 +568,7 @@ async def fight(ctx, member: discord.User = None):
 		provoker = [99999,99999,9999]
 	turnName = ctx.author.mention
 	action = f"fighting {member.mention}"
-	await message.edit(content = f"{action}\n{ctx.author.mention}stats:\nhp: {provoker[0]}\natk: {provoker[1]}\ndef: {provoker[2]}\n---------------------------\n{member.mention} stats:\nhp: {victim[0]}\natk: {victim[1]}\ndef: {victim[2]}\n---------------------------\n{turnName}'s turn")
+	await message.edit(content = corrupt(f"{action}\n{ctx.author.mention}stats:\nhp: {provoker[0]}\natk: {provoker[1]}\ndef: {provoker[2]}\n---------------------------\n{member.mention} stats:\nhp: {victim[0]}\natk: {victim[1]}\ndef: {victim[2]}\n---------------------------\n{turnName}'s turn"))
 	while 1:
 		interaction = await client.wait_for('button_click', check=check_button)
 		start = time.time()
