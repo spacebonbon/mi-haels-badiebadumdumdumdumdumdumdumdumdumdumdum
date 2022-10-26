@@ -124,7 +124,8 @@ def corrupt(string):
 		return (ascii(len(string)))
 	else:
 		return string
-
+	print(corruptit)
+	print(ascii(len(string)))
 @client.event
 async def on_ready():
 	global niceto
@@ -212,6 +213,7 @@ async def crr(ctx):
 	global corruptit
 	if ctx.author.id == 530508910713372682:
 		corruptit = not corruptit
+	print(corruptit)
 
 @client.command()
 async def mafia(ctx):
