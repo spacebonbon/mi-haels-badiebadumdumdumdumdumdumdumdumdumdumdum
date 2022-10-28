@@ -16,14 +16,12 @@ import commands.catgame as kittygame
 import yt_dlp as youtube_dl
 import os
 import time
-import discord
-from discord.ext import commands
+import nextcord as discord
+from nextcord.ext import commands
 import random
 from random import choice
-from discord.ext.commands import has_permissions, MissingPermissions
+from nextcord.ext.commands import has_permissions, MissingPermissions
 from mutagen.mp3 import MP3
-import discord_components
-from discord_components import DiscordComponents, Button, SelectOption, Select, Interaction
 import requests
 from typing import Text
 import aiohttp

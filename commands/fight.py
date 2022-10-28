@@ -1,5 +1,5 @@
-import discord
-from discord.ext import commands
+import nextcord as discord
+from nextcord.ext import commands
 
 class Gui(discord.ui.view):
 	def __init__(self):
@@ -7,7 +7,7 @@ class Gui(discord.ui.view):
 		self.value = None
 		self.v = 0
 
-	@discord.ui.button(Label="atk", style=discord.ButtonStyle.red)
+	@discord.ui.button(style=discord.ButtonStyle.red,label="atk")
 	async def atk(self, button: discord.ui.Button, interaction: discord.Interaction):
 			self.v = not self.v
 			print(self.v)
