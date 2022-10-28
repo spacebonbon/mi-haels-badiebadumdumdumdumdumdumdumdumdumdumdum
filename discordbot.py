@@ -29,6 +29,7 @@ import requests
 from typing import Text
 import aiohttp
 from dotenv import load_dotenv
+from discord import app_commands
 
 load_dotenv()
 
@@ -117,6 +118,11 @@ async def findgame(id):
 client = discord.Client()
 client = commands.Bot(command_prefix='./', intents=intents)
 DiscordComponents(client)
+tree = app_commands.CommandTree(client)
+
+@tree.command(name = "Magic 8 ball", description = "The majic 8 ball (yes with a J not a g)") #Add the guild ids in which the slash command will appear. If it should be in all, remove the argument, but note that it will take some time (up to an hour) to register the command if it's for all guilds.
+async def b(interaction):
+    await interaction.response.send_message(texts("assets/textFiles/8ball.8"))
 
 def corrupt(string):
 	global corruptit
@@ -167,6 +173,8 @@ async def on_message(message):
 		tf = [True,False,True,False,True]
 		if random.choice(tf):
 			await message.reply(texts("assets/textFiles/disses.4u"))
+	if ("8" == message.content[0]):
+		await message.reply(texts("assets/textFiles/8ball.8"))
 	if ("./delete" in message.content.lower()):
 		time.sleep(1)
 		await message.delete()
@@ -180,7 +188,7 @@ async def on_message(message):
 			quit()
 		else:
 			await message.channel.send(corrupt("you don't have control over me " + str(message.author) + "!"))
-	
+
 	if "s my fortune" in message.content.lower() or message.content == "./fortune":
 		if (random.randint(0, 100) < 50):
 			await message.channel.send(corrupt(texts("assets/textFiles/misfortunes.txt")))
@@ -214,7 +222,10 @@ async def crr(ctx):
 	if ctx.author.id == 530508910713372682:
 		corruptit = not corruptit
 	print(corruptit)
-
+@client.command()
+async def sync(ctx):
+	await tree.sync(guild=ctx.guild)
+	await ctx.reply("/ cmds updated")
 @client.command()
 async def mafia(ctx):
 	await mfia.mafia(ctx,client)
