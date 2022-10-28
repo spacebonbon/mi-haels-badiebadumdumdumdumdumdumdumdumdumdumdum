@@ -116,12 +116,11 @@ async def findgame(id):
 
 
 
-client = discord.Client()
+client = discord.Client(intents=intents)
 client = commands.Bot(command_prefix='./', intents=intents)
-DiscordComponents(client)
 tree = app_commands.CommandTree(client)
 
-@tree.command(name = "Magic 8 ball", description = "The majic 8 ball (yes with a J not a g)") #Add the guild ids in which the slash command will appear. If it should be in all, remove the argument, but note that it will take some time (up to an hour) to register the command if it's for all guilds.
+@tree.command(name = "Magic 8 ball", description = "The majic 8 ball (yes with a J not a g)",guild=discord.Object(id=12417128931)) #Add the guild ids in which the slash command will appear. If it should be in all, remove the argument, but note that it will take some time (up to an hour) to register the command if it's for all guilds.
 
 async def b(interaction):
     await interaction.response.send_message(texts("assets/textFiles/8ball.8"))
@@ -142,7 +141,8 @@ async def on_ready():
 	niceto = [int(s.strip('\n')) for s in niceto]
 	file.close()
 	print(niceto)
-
+	await tree.sync(guild=discord.Object(id=993531972402040902))	
+	print("At the ready")
 @client.event
 async def on_reaction_add(reaction, user):
 	global opengames
