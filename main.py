@@ -8,10 +8,13 @@ niceto = []
 corruptit = False
 from asciimini import givemeascii as ascii
 import ffmpeg
+import math
 import asyncio
 import pdb
+from pyexpat.errors import messages
 import commands.mafia as mfia
 import commands.catgame as kittygame
+#import commands.fight.Gui as Gui
 import yt_dlp as youtube_dl
 import os
 import time
@@ -19,9 +22,15 @@ import discord
 from discord.ext import commands
 import random
 from random import choice
+from discord.ext.commands import has_permissions, MissingPermissions
 from mutagen.mp3 import MP3
+#import discord_components
+#from discord_components import DiscordComponents, Button, SelectOption, Select, Interaction
 import requests
+from typing import Text
+import aiohttp
 from dotenv import load_dotenv
+from discord import app_commands
 
 load_dotenv()
 
