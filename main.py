@@ -8,29 +8,20 @@ niceto = []
 corruptit = False
 from asciimini import givemeascii as ascii
 import ffmpeg
-import math
 import asyncio
 import pdb
-from pyexpat.errors import messages
 import commands.mafia as mfia
 import commands.catgame as kittygame
-#import commands.fight.Gui as Gui
-#import yt_dlp as youtube_dl
+import yt_dlp as youtube_dl
 import os
 import time
 import discord
 from discord.ext import commands
 import random
 from random import choice
-from discord.ext.commands import has_permissions, MissingPermissions
 from mutagen.mp3 import MP3
-#import discord_components
-#from discord_components import DiscordComponents, Button, SelectOption, Select, Interaction
 import requests
-from typing import Text
-import aiohttp
 from dotenv import load_dotenv
-from discord import app_commands
 
 load_dotenv()
 
@@ -118,12 +109,7 @@ async def findgame(id):
 
 client = discord.Client(intents=intents)
 client = commands.Bot(command_prefix='./', intents=intents)
-tree = app_commands.CommandTree(client)
 
-@tree.command(name = "Magic 8 ball", description = "The majic 8 ball (yes with a J not a g)",guild=discord.Object(id=12417128931)) #Add the guild ids in which the slash command will appear. If it should be in all, remove the argument, but note that it will take some time (up to an hour) to register the command if it's for all guilds.
-
-async def b(interaction):
-    await interaction.response.send_message(texts("assets/textFiles/8ball.8"))
 
 def corrupt(string):
 	global corruptit
@@ -140,8 +126,7 @@ async def on_ready():
 	niceto = file.readlines()
 	niceto = [int(s.strip('\n')) for s in niceto]
 	file.close()
-	print(niceto)
-	await tree.sync(guild=discord.Object(id=993531972402040902))	
+	print(niceto)	
 	print("At the ready")
 @client.event
 async def on_reaction_add(reaction, user):
@@ -226,7 +211,6 @@ async def crr(ctx):
 	print(corruptit)
 @client.command()
 async def sync(ctx):
-	await tree.sync(guild=ctx.guild)
 	await ctx.reply("/ cmds updated")
 @client.command()
 async def mafia(ctx):
